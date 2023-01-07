@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Administrator kompanije - Izmena korisnika</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap-4.4.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8">  
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/akk_zahtevi" style="color: #000000; font-size: 18px;">Zahtevi</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/akk_korisnici" style="color: #008ae6; font-weight: bold; font-size: 18px;">Korisnici</a>
+            </li>
+        </ul>
+        <div class="text-right">
+            <a href="{{url_for('Logout_Akk')}}" role="button"><i class="fas fa-sign-out-alt logout" title="Odjavi se" style="font-size: 22px;"></i></a>
+        </div>
+    </div>
+</nav>
+
+<section class="py-3">
+    <div class="container" style="border: 1px solid; width: 480px;">
+    <a href="/akk_korisnici"><i class="fas fa-arrow-left" style="margin-top: 10px; font-size: 28px;"></i></a>
+    <h4 style="text-align: center;">Izmena korisnika</h4>
+    <form action="{{url_for('Akk_Korisnik_Izmena', id_data = korisnici.id_korisnika)}}" method="POST"><br/>
+           <table class="table" style="margin-bottom: 0px !important;">
+              <tbody>
+                <tr>
+                  <td class="text-left">Ime:</td>
+                  <td class="text-right">
+                    <input type="text" oninput="auto_grow(this)" name="ime" value="{{korisnici.ime}}" style="width: 200px;">
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-left">Prezime:</td>
+                  <td class="text-right">
+                    <input type="text" oninput="auto_grow(this)" name="prezime" value="{{korisnici.prezime}}" 
+                    style="width: 200px;">
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-left">Kompanija:</td>
+                  <td class="text-right">
+                      <select id="gray" name="kompanija" value="{{korisnici.kompanija}}" style="width: 200px; -webkit-appearance: none !important;">
+                          <option value="{{korisnici.kompanija}}">{{korisnici.naziv_kompanije}}</option>
+                      </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-left">Rola:</td>
+                  <td class="text-right">
+                    <select name="rola" value="{{korisnici.rola}}" style="width: 200px">
+                          <option value="{{korisnici.rola}}" selected>{{korisnici.naziv_role}}</option>
+                          {% for rola in rola %}
+                          <option value="{{rola.id_role}}">{{rola.naziv_role}}</option>
+                          {% endfor %}
+                      </select>
+                  </td>
+                </tr>
+                 <tr>
+                  <td class="text-left">E-mail:</td>
+                  <td class="text-right">
+                    <input type="email" oninput="auto_grow(this)" name="email" value="{{korisnici.email}}" 
+                    style="width: 200px;">
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-left">Korisničko ime:</td>
+                  <td class="text-right">
+                    <input type="text" oninput="auto_grow(this)" name="korisnicko_ime" value="{{korisnici.korisnicko_ime}}" 
+                    style="width: 200px;">
+                  </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center"><a href="{{url_for('Akk_Promena_Lozinke', id_data = korisnici.id_korisnika)}}" class="zaboravljena_lozinka">Promena lozinke</a>
+                    </td>
+                </tr>
+                <tr>
+                  <td align="center" colspan="2">
+                    <input type="submit" style="width: 100%;" class="fourth zero-raduis" value="Sačuvaj">
+                  </td>
+                </tr>
+              </tbody>
+             </table>
+      </form>
+  </div>
+</section>
+
+<script type="text/javascript">
+
+    function auto_grow(element)
+    {
+        element.style.height = "34px";
+        element.style.height = (element.scrollHeight)+"px";
+    }
+
+    var field = document.querySelector('#today');
+    var date = new Date();
+
+    // Set the date
+    field.value = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString().padStart(2, 0) + '-' + date.getDate().toString().padStart(2, 0);
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>  
+</body>
+</html>

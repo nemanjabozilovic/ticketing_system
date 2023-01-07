@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zaposleni kompanije - Nalog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap-4.4.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8">  
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/zk_zahtevi" style="color: #000000; font-size: 18px;">Zahtevi</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/zk_nalog" style="color: #008ae6; font-weight: bold;  font-size: 18px;">Nalog</a>
+            </li>
+        </ul>
+        <div class="text-right">
+            <a href="{{url_for('Logout_Zk')}}" role="button"><i class="fas fa-sign-out-alt logout" title="Odjavi se" style="font-size: 22px;"></i></a>
+        </div>
+    </div>
+  </nav>
+
+<section class="py-1">
+    <div class="container" style="border: 1px solid; width: 480px;">
+    <h4 style="text-align: center; margin-top: 10px;">Nalog</h4>
+    <form action="{{url_for('Zk_Nalog')}}" method="POST"><br/>
+           <table class="table" style="margin-bottom: 0px !important;">
+            {%with messages = get_flashed_messages()%}
+            {%if messages%}
+            {% for message in messages %}
+            <div class="alert alert-success alert-dismissable" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label ="close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <center>{{message}}</center>
+            </div>
+            {%endfor%}
+            {%endif%}
+            {%endwith%}
+              <tbody>
+                <tr>
+                  <td class="text-left">Ime:</td>
+                  <td class="text-right">
+                    <input type="text" oninput="auto_grow(this)" name="ime" value="{{korisnik.ime}}" style="width: 200px;">
+                    <input type="hidden" name="id_korisnika" value="{{korisnik.id_korisnika}}">
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-left">Prezime:</td>
+                  <td class="text-right">
+                    <input type="text" oninput="auto_grow(this)" name="prezime" value="{{korisnik.prezime}}" style="width: 200px;">
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-left">Kompanija:</td>
+                  <td class="text-right">
+                    <input id="gray" type="text" oninput="auto_grow(this)" name="kompanija" value="{{korisnik.kompanija_naziv}}" style="width: 200px;" readonly>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-left">Rola:</td>
+                  <td class="text-right">
+                    <input id="gray" type="text" oninput="auto_grow(this)" name="rola" value="{{korisnik.naziv_role}}" style="width: 200px;" readonly>
+                  </td>
+                </tr>
+                 <tr>
+                  <td class="text-left">E-mail:</td>
+                  <td class="text-right">
+                    <input type="email" oninput="auto_grow(this)" name="email" value="{{korisnik.email}}" 
+                    style="width: 200px;">
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-left">Korisničko ime:</td>
+                  <td class="text-right">
+                    <input id="gray" type="text" oninput="auto_grow(this)" name="korisnicko_ime" value="{{korisnik.korisnicko_ime}}" 
+                    style="width: 200px;">
+                  </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center"><a href="{{url_for('Zk_Promena_Lozinke', id_data = korisnik.id_korisnika)}}" class="zaboravljena_lozinka">Promena lozinke</a>
+                    </td>
+                </tr>
+                <tr>
+                  <td align="center" colspan="2">
+                    <input type="submit" style="width: 100%;" class="fourth zero-raduis" value="Sačuvaj">
+                  </td>
+                </tr>
+              </tbody>
+             </table>
+      </form>
+  </div>
+</section>
+
+<script type="text/javascript">
+
+    function auto_grow(element)
+    {
+        element.style.height = "34px";
+        element.style.height = (element.scrollHeight)+"px";
+    }
+
+    var field = document.querySelector('#today');
+    var date = new Date();
+
+    // Set the date
+    field.value = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString().padStart(2, 0) + '-' + date.getDate().toString().padStart(2, 0);
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>  
+</body>
+</html>

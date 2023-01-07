@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Administrator kompanije - Novi Zahtev</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap-4.4.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8">  
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/akk_zahtevi" style="color: #008ae6; font-weight: bold; font-size: 18px;">Zahtevi</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/akk_korisnici" style="color: #000000; font-size: 18px;">Korisnici</a>
+            </li>
+        </ul>
+        <div class="text-right">
+            <a href="{{url_for('Logout_Akk')}}" role="button"><i class="fas fa-sign-out-alt logout" title="Odjavi se" style="font-size: 22px;"></i></a>
+        </div>
+    </div>
+</nav>
+
+<section class="py-3">
+    <div class="container" style="border: 1px solid; width: 480px;">
+        <a href="/akk_zahtevi"><i class="fas fa-arrow-left" style="margin-top: 10px; font-size: 28px;"></i></a>
+        <h4 style="text-align: center;">Novi zahtev</h4>
+        <form action="{{url_for('Akk_Novi_Zahtev')}}" method="POST" enctype="multipart/form-data"><br/>
+             <table class="table" style="margin-bottom: 0px !important;">
+                <tbody>
+                        {%with messages = get_flashed_messages()%}
+                        {%if messages%}
+                        {% for message in messages %}
+                        <div class="alert alert-danger alert-dismissable" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label ="close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <center>{{message}}</center>
+                        </div>
+                        {%endfor%}
+                        {%endif%}
+                        {%endwith%}
+                    <tr>
+                        <td class="text-left">Broj zahteva:</td>
+                        <td class="text-right">
+                            <input id="gray" type="number" name="broj_zahteva" oninput="auto_grow(this)" style="width: 200px;" value="{{br.zahtev_broj}}" readonly>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">Datum podnošenja:</td>
+                        <td class="text-right">
+                            <input id="today" type="text" name="datum_podnosenja" oninput="auto_grow(this)" style="width: 200px; background: #d4d2d2; color: black;" readonly>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">Podnosilac:</td>
+                        <td class="text-right">
+                            <input type="hidden" name="ime_prezime" value="{{korisnik.ime}} {{korisnik.prezime}}">
+                            <select id="gray" name="ime_prezime_podnosioca" style="width: 200px; -webkit-appearance: none !important;">
+                                <option value="{{korisnik.id_korisnika}}">{{korisnik.ime}} {{korisnik.prezime}}</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">Iz kompanije:</td>
+                        <td class="text-right">
+                            <input type="hidden" name="iz_kompanije" value="{{korisnik.kompanija_naziv}}">
+                            <select id="gray" name="kompanija" style="width: 200px; -webkit-appearance: none !important;">
+                                <option value="{{korisnik.kompanija}}">{{korisnik.kompanija_naziv}}</option>
+                            </select>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td class="text-left">Za kompaniju:</td>
+                        <td class="text-right">
+                            <select id="gray" name="za_kompaniju" style="width: 200px; -webkit-appearance: none !important;">
+                                <option value="{{kompanije.id_kompanije}}">{{kompanije.naziv_kompanije}}</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">Zahtev:</td>
+                        <!-- <td class="text-right">
+                            <textarea name="zahtev" style="width: 200px; min-height: 70px;" placeholder="Opis zahteva" oninput="auto_grow(this)"></textarea>
+                        </td> -->
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <textarea name="zahtev" style="width: 100%; min-height: 30px;" placeholder="Opis zahteva" oninput="auto_grow(this)"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-left" style="font-size: 15.9px;">Slika kao opis zahteva:</td>
+                        <td class="text-right">
+                            <input type="file" name="file" style="font-size: 12px;">
+                            <input type="hidden" name="slika_kao_opis_zahteva">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <input type="submit" style="width: 100%;" class="fourth zero-raduis" value="Sačuvaj">
+                        </td>
+                    </tr>
+                </tbody>
+             </table>
+        </form>
+    </div>
+</section>
+
+<script type="text/javascript">
+
+    function auto_grow(element)
+    {
+        element.style.height = "34px";
+        element.style.height = (element.scrollHeight)+"px";
+    }
+
+    var field = document.querySelector('#today');
+    var date = new Date();
+
+    // Set the date
+    field.value = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString().padStart(2, 0) + '-' + date.getDate().toString().padStart(2, 0);
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>  
+</body>
+</html>

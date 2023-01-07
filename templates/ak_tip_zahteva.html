@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Administrator kompanije - Tip zahteva</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap-4.4.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8">  
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="/ak_zahtevi" style="color: #000000; font-size: 18px;">Zahtevi</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/ak_korisnici" style="color: #000000;  font-size: 18px;">Korisnici</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/ak_kompanije" style="color: #000000;  font-size: 18px;">Kompanije</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/ak_tip_zahteva" style="color: #008ae6; font-weight: bold;  font-size: 18px;">Tip zahteva</a>
+            </li>
+        </ul>
+        <div class="text-right">
+            <a href="{{url_for('Logout_Ak')}}" role="button"><i class="fas fa-sign-out-alt logout" title="Odjavi se" style="font-size: 22px;"></i></a>
+        </div>
+    </div>
+  </nav>
+
+<div class="container my-5">
+    <div class="row my-3 justify-content-end">
+        <div class="col-sm" style="text-align: right;">
+                <a class="btn btn-light" href="/ak_novi_tip_zahteva">Dodaj novi tip zahteva&nbsp;
+                  <i class="fas fa-plus-circle text-success"></i>
+                </a>
+        </div>
+    </div>
+    <div class="my-3 justify-content-center">
+        {%with messages = get_flashed_messages()%}
+        {%if messages%}
+        {% for message in messages %}
+        <div class="alert alert-success alert-dismissable" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label ="close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <center>{{message}}</center>
+        </div>
+        {%endfor%}
+        {%endif%}
+        {%endwith%}
+        <div class="table-responsive">
+            <table class="table">
+              <thead style="background-color: #008ae6;">
+                <tr style="color: white;">
+                  <th scope="col">Tip zahteva</th>
+                  <th scope="col">Skraćena oznaka</th>
+                  <th scope="col">Aktivnost</th>
+                </tr>
+              </thead>
+              <tbody>
+                 {% for tip_zahteva in tip_zahteva %}
+                <tr>
+                  <td>{{tip_zahteva.naziv_tipa_zahteva}}</td>
+                  <td>{{tip_zahteva.skracena_oznaka}}</td>
+                  <td>
+                  <a href="{{url_for('Ak_Tip_Zahteva_Izmena', id_data = tip_zahteva.id_tipa_zahteva)}}" class="icon-btn text-warning" role="button"><i class="fas fa-edit"></i></a>&nbsp;
+                  <a class="icon-btn text-danger" href="/ak_tip_zahteva_brisanje/{{tip_zahteva.id_tipa_zahteva}}" onclick="return confirm('Da li ste sigurni da želite da obrišete navedeni tip zahteva?')" role="button"><i class="fas fa-trash-alt"></i></a>
+                </td>
+                {% endfor %}
+              </tbody>
+            </table>
+           </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function auto_grow(element)
+    {
+        element.style.height = "34px";
+        element.style.height = (element.scrollHeight)+"px";
+    }
+
+    var field = document.querySelector('#today');
+    var date = new Date();
+
+    // Set the date
+    field.value = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString().padStart(2, 0) + '-' + date.getDate().toString().padStart(2, 0);
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>  
+</body>
+</html>

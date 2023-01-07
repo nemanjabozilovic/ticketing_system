@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zaposleni kompanije - Zahtevi</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap-4.4.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+</head>  
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/zk_zahtevi" style="color: #008ae6; font-weight: bold; font-size: 18px;">Zahtevi</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/zk_nalog" style="color: #000000;  font-size: 18px;">Nalog</a>
+            </li>
+        </ul>
+        <div class="text-right">
+            <a href="{{url_for('Logout_Zk')}}" role="button"><i class="fas fa-sign-out-alt logout" title="Odjavi se" style="font-size: 22px;"></i></a>
+        </div>
+    </div>
+  </nav>
+
+<div class="container justify-content-center my-5 py-3">
+
+       <div class="row">
+          <div class="col text-left ml-1 pl-1" style="padding-top: 7px;">
+            <a href="/zk_zahtevi"><i class="fas fa-arrow-left" style="font-size: 28px;"></i></a>
+          </div>
+          <div class="col text-center mr-4 pr-4" style="padding-top: 4px;">
+            <a class="result_title" href="#" style="font-size: 21px;">Rezultati pretrage:</a>
+          </div>
+          <div class="col text-right mr-1 pr-1" style="padding-top: 7px;"></div>
+       </div>
+       
+       <!-- <div class="row pt-3">
+        <div class="col text-right" style="margin-right: 60px;"> 
+          <a href="#" class="kreiraj" style="color: black;">Kreiraj PDF 
+              <i class="far fa-file-pdf"></i>
+          </a>
+        </div>
+       </div> -->
+
+      <div class="row my-3 justify-content-center">
+        <div class="table-responsive">
+             <table class="table">
+              <thead style="background-color: #008ae6;">
+                <tr style="color: white;">
+                  <th scope="col">ID</th>
+                  <th scope="col">Datum podnošenja</th>
+                  <th scope="col">Podnosilac</th>
+                  <th scope="col">Iz kompanije</th>
+                  <th scope="col">Za kompaniju</th>
+                  <!-- <th scope="col">Tip</th> -->
+                  <th scope="col">Status</th>
+                  <th scope="col">Očekivani datum</th>
+                  <!-- <th scope="col">Broj utrošenih sati</th> -->
+                  <th scope="col">Aktivnost</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for zahtevi in zahtevi %}
+                <tr>
+                  <td>{{zahtevi.broj_zahteva}}</td>
+                  <td>{{zahtevi.datum_podnosenja}}</td>
+                  <td>{{zahtevi.ime}} {{zahtevi.prezime}}</td>
+                  <td>{{zahtevi.naziv_kompanije}}</td>
+                  <td>{{zahtevi.za_kompaniju}}</td>
+                  <!-- <td>{{zahtevi.naziv_tipa}}</td> -->
+                  <td>{{zahtevi.tip_statusa}}</td>
+                  <td>{{zahtevi.ocekivani_datum}}</td>
+                  <!-- <td>{{zahtevi.broj_utrosenih_sati}}</td> -->
+                  <td>
+                  <a class="icon-btn text-primary" href="{{url_for('Zk_Zahtev', id_data = zahtevi.id_zahteva)}}" role="button"><b><i class="far fa-eye"></i></b></a>&nbsp;
+                  <a href="{{url_for('Zk_Zahtev_Izmena', id_data = zahtevi.id_zahteva)}}" class="icon-btn text-warning" 
+                    role="button"><i class="fas fa-edit"></i></a>
+                </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+           </div>
+       </div>
+</div>
+
+
+
+<script type="text/javascript">
+
+    function auto_grow(element)
+    {
+        element.style.height = "34px";
+        element.style.height = (element.scrollHeight)+"px";
+    }
+
+    var field = document.querySelector('#today');
+    var date = new Date();
+
+    // Set the date
+    field.value = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString().padStart(2, 0) + '-' + date.getDate().toString().padStart(2, 0);
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> 
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Resetovanje lozinke</title>
+  <link rel="stylesheet" type="text/css" href="/static/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/static/bootstrap-4.4.1-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="utf-8">
+</head>
+<body>
+
+  <section class="my-4 py-4">
+    <div class="container my-5" style="border: 1px solid; width: 480px;">
+      <a href="/login"><i class="fas fa-arrow-left" style="margin-top: 10px; font-size: 28px;"></i></a>
+      <h4 style="text-align: center; margin-top: 10px;">Resetovanje lozinke</h4>
+      <form action="/reset_forma" method="POST"><br/>
+            <table class="table" style="margin-bottom: 0px !important;">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                      {% for category, message in messages %}
+                         <div class="alert alert-{{ category }}" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label ="close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                            <center>{{message}}</center>
+                         </div>
+                      {% endfor %}
+                    {% endif %}
+                  {% endwith %}
+                <tbody>
+                  <tr>
+                    <td colspan="2" class="text-center">
+                      <p>Unesite e-mail adresu, i poslaćemo Vam uputstvo za resetovanje lozinke.</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-left">E-mail adresa:</td>
+                    <td class="text-right">
+                      <input type="email" oninput="auto_grow(this)" name="email" style="width: 220px;" required>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" align="center">
+                      <input type="submit" style="width: 100%;" class="fourth zero-raduis" value="Pošalji">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+        </form>
+    </div>
+</section>
+
+<script type="text/javascript">
+
+    function auto_grow(element)
+    {
+        element.style.height = "34px";
+        element.style.height = (element.scrollHeight)+"px";
+    }
+
+</script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> 
+</body>
+</html>

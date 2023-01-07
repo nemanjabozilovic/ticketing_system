@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zaposleni kompanije - Nalog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap-4.4.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8">  
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/zkk_zahtevi" style="color: #000000; font-size: 18px;">Zahtevi</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/zkk_nalog" style="color: #008ae6; font-weight: bold;  font-size: 18px;">Nalog</a>
+            </li>
+        </ul>
+        <div class="text-right">
+            <a href="{{url_for('Logout_Zkk')}}" role="button"><i class="fas fa-sign-out-alt logout" title="Odjavi se" style="font-size: 22px;"></i></a>
+        </div>
+    </div>
+  </nav>
+
+
+<section class="py-1">
+    <div class="container" style="border: 1px solid; width: 480px;">
+    <a href="/zkk_nalog"><i class="fas fa-arrow-left" style="margin-top: 10px; font-size: 28px;"></i></a>
+    <h4 style="text-align: center; margin-top: 10px;">Promena lozinke</h4>
+    <form action="{{url_for('Zkk_Promena_Lozinke', id_data = korisnik.id_korisnika)}}" method="POST"><br/>
+           <table class="table" style="margin-bottom: 0px !important;">
+             {%with messages = get_flashed_messages()%}
+              {%if messages%}
+              {% for message in messages %}
+              <div class="alert alert-danger alert-dismissable" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label ="close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+                  <center>{{message}}</center>
+              </div>
+              {%endfor%}
+              {%endif%}
+              {%endwith%}
+              <tbody>
+                <tr>
+                  <td class="text-left">Stara lozinka:</td>
+                  <td class="text-right">
+                    <input type="password" oninput="auto_grow(this)" name="stara_lozinka" value="" style="width: 200px;">
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-left">Nova lozinka:</td>
+                  <td class="text-right">
+                    <input type="password" oninput="auto_grow(this)" name="lozinka" value="" style="width: 200px;">
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-left">Potvrda nove lozinke:</td>
+                  <td class="text-right">
+                    <input type="password" oninput="auto_grow(this)" name="potvrda_lozinke" value="" style="width: 200px;">
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center" colspan="2">
+                    <input type="submit" style="width: 100%;" class="fourth zero-raduis" value="Sačuvaj">
+                  </td>
+                </tr>
+              </tbody>
+             </table>
+      </form>
+  </div>
+</section>
+
+<script type="text/javascript">
+
+    function auto_grow(element)
+    {
+        element.style.height = "34px";
+        element.style.height = (element.scrollHeight)+"px";
+    }
+
+    var field = document.querySelector('#today');
+    var date = new Date();
+
+    // Set the date
+    field.value = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString().padStart(2, 0) + '-' + date.getDate().toString().padStart(2, 0);
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>  
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zaposleni kompanije - Zahtev</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap-4.4.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8">  
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/zkk_zahtevi" style="color: #008ae6; font-weight: bold; font-size: 18px;">Zahtevi</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/zkk_nalog" style="color: #000000;  font-size: 18px;">Nalog</a>
+            </li>
+        </ul>
+        <div class="text-right">
+            <a href="{{url_for('Logout_Zkk')}}" role="button"><i class="fas fa-sign-out-alt logout" title="Odjavi se" style="font-size: 22px;"></i></a>
+        </div>
+    </div>
+  </nav>
+
+  
+<section class="py-3">
+    <div class="container" style="border: 1px solid; width: 480px;">
+        <a href="/zkk_zahtevi"><i class="fas fa-arrow-left" style="margin-top: 10px; font-size: 28px;"></i></a>
+        <h4 style="text-align: center;">Zahtev</h4>
+             <table class="table" style="margin-bottom: 0px !important;">
+                <tbody>
+                    <tr>
+                        <td class="text-left">Broj zahteva:</td>
+                        <td class="text-right">
+                            <input id="gray" type="number" name="broj_zahteva" value="{{zahtevi.broj_zahteva}}" 
+                            oninput="auto_grow(this)" style="width: 200px;" readonly>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">Datum podnošenja:</td>
+                        <td class="text-right">
+                            <input id="gray" type="text" name="datum_podnosenja" value="{{zahtevi.datum_podnosenja}}" 
+                            oninput="auto_grow(this)" style="width: 200px;" readonly>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">Podnosilac:</td>
+                        <td class="text-right">
+                            <input id="gray" type="text" name="ime_prezime_podnosioca" value="{{zahtevi.ime}} {{zahtevi.prezime}}" readonly style="width: 200px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">Iz kompanije:</td>
+                        <td class="text-right">
+                            <input id="gray" type="text" name="kompanija" value="{{zahtevi.kompanija_naziv}}" readonly style="width: 200px;">
+                        </td>
+                    </tr>
+                     <tr>
+                        <td class="text-left">Za kompaniju:</td>
+                        <td class="text-right">
+                            <input id="gray" type="text" name="kompanija" value="{{zahtevi.za_kompaniju_naziv}}" readonly style="width: 200px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">Zahtev:</td>
+                    </tr>
+                    <tr><td colspan="2" align="center">
+                        <textarea id="gray" name="zahtev" value="{{zahtevi.zahtev}}" style="width: 100%; min-height: 40px;" 
+                            oninput="auto_grow(this)" readonly>{{zahtevi.zahtev}}</textarea>
+                    </td></tr>
+                    <tr>
+                        <td class="text-left" style="font-size: 15.9px;">Slika kao opis zahteva:</td>
+                        <td class="text-right">
+                            <img id="myImg" src="/{{zahtevi.slika_kao_opis_zahteva}}" style="width: 221px; height: 176px;">
+                            <div id="myModal" class="modal">
+                              <span class="close" style="color: white; font-size: 35px;">&times;</span>
+                              <img class="modal-content" id="img01">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><hr width="100%" style="border:1px solid; margin-bottom: 0;"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <h3 style="font-family">Izveštaj o realizaciji zahteva</h3>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="text-left">Napomena:</td>
+                        <!-- <td class="text-right">
+                            <textarea id="gray" name="napomena" value="{{zahtevi.napomena}}" style="width: 200px; min-height: 70px;"
+                            oninput="auto_grow(this)" readonly>{{zahtevi.napomena}}</textarea>
+                        </td> -->
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <textarea id="gray" name="napomena" value="{{zahtevi.napomena}}" style="width: 100%; min-height: 30px;"
+                            oninput="auto_grow(this)" readonly>{{zahtevi.napomena}}</textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">Tip zahteva:</td>
+                        <td class="text-right">
+                            <input id="gray" type="text" name="tip_zahteva" value="{{zahtevi.naziv_tipa}}" readonly style="width: 200px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">Očekivani datum:</td>
+                        <td class="text-right">
+                            <input id="gray" type="date" name="ocekivani_datum" value="{{zahtevi.ocekivani_datum}}" 
+                            oninput="auto_grow(this)" style="width: 200px;" readonly>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">Status:</td>
+                        <td class="text-right">
+                            <input id="gray" type="text" name="status" value="{{zahtevi.naziv_statusa}}" readonly style="width: 200px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">Komentar:</td>
+                        <!-- <td class="text-right">
+                            <textarea id="gray" name="komentar" value="{{zahtevi.komentar}}" style="width: 200px; min-height: 70px;"
+                            oninput="auto_grow(this)" readonly>{{zahtevi.komentar}}</textarea>
+                        </td> -->
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <textarea id="gray" name="komentar" value="{{zahtevi.komentar}}" style="width: 100%; min-height: 20px;"
+                            oninput="auto_grow(this)" readonly>{{zahtevi.komentar}}</textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">Broj utrošenih sati:</td>
+                        <td class="text-right">
+                            <input id="gray" type="number" name="broj_utrosenih_sati" value="{{zahtevi.broj_utrosenih_sati}}" 
+                            oninput="auto_grow(this)" style="width: 200px;" readonly>
+                        </td>
+                    </tr>
+                </tbody>
+             </table>
+    </div>
+</section>
+
+<script>
+
+    function auto_grow(element)
+    {
+        element.style.height = "34px";
+        element.style.height = (element.scrollHeight)+"px";
+    }
+
+    var field = document.querySelector('#today');
+    var date = new Date();
+
+    var modal = document.getElementById("myModal");
+    var img = document.getElementById("myImg");
+    var modalImg = document.getElementById("img01");
+
+    img.onclick = function(){
+      modal.style.display = "block";
+      modalImg.src = this.src;
+      captionText.innerHTML = this.alt;
+    }
+
+    var span = document.getElementsByClassName("close")[0];
+
+    span.onclick = function() { 
+      modal.style.display = "none";
+    }
+
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>  
+</body>
+</html>
